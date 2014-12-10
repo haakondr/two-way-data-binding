@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="bower_components/angular/angular.js"></script>
+</head>
+
+<body>
+<!--Debug angular digest cycle linje 14124 -->
+<div ng-app="app">
+    <div ng-controller="controller">
+        <input type="text" name="name" ng-model="name" autocomplete="off">
+        <p>{{name}}</p>
+        <p>{{variabel}}</p>
+    </div>
+
+
+    <div ng-controller="SecondController">
+        {{variabelUtenforScope}}
+    </div>
+</div>
+</body>
+
+<script>
+    var app = angular.module('app', []);
+    app.controller('controller', function($scope) {
+
+        $scope.variabel = "variabel som vi aldri endrer";
+
+    });
+
+    app.controller('SecondController', function($scope) {
+        $scope.variabelUtenforScope = "Dette er i et annet scope, men sjekkes likevel av en dirty check :(";
+    });
+</script>
+</html>
